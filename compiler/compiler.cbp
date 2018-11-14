@@ -36,6 +36,7 @@
 		<Unit filename="grammar_analysis.cpp" />
 		<Unit filename="grammar_analysis.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="tree.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

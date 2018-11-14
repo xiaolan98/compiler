@@ -2,14 +2,20 @@
 #define GRAMMAR_ANALYSIS_H_INCLUDED
 #include<vector>
 using namespace std;
+struct node{
+    string element;
+    vector<node*> children;
+    node* parent;
+    node(string key){
+        element = key;
+    }
+};
 class grammar_analysis{
 public:
-    grammar_analysis(vector<pair<int, int> >sym, vector<string>id, vector<string> num){
-        this->sym = sym;
-        this->id = id;
-        this->num = num;
-    }
+    grammar_analysis(vector<pair<int, int> >sym, vector<string>id, vector<string> num);
 private:
+    node* root;
+    node* pos_pointer;
     vector<pair<int, int> > sym;
     vector<string> id;
     vector<string> num;
@@ -40,6 +46,8 @@ private:
 	int write_statement();// first={write}
 	//int letter();// first={[a-z]}
 	//int digit();// first={[0,9]}
+	void drawTree(vector<node*> nodes, vector<int> nodeNum);
+	void addNode(const string& key);
 
 };
 

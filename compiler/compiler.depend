@@ -1,16 +1,19 @@
 # depslib dependency file v1.0
-1541944520 source:d:\mr.t\desktop\course\大三上\compiler\compiler\compiler.cpp
+1542184208 source:d:\mr.t\desktop\course\大三上\compiler\compiler\compiler.cpp
 	<iostream>
 	<vector>
 	<fstream>
-
-1541945419 source:d:\mr.t\desktop\course\大三上\compiler\compiler\main.cpp
-
-1541945403 source:d:\mr.t\desktop\course\大三上\compiler\compiler\grammar_analysis.cpp
-	<iostream>
 	"grammar_analysis.h"
 
-1541945299 d:\mr.t\desktop\course\大三上\compiler\compiler\grammar_analysis.h
+1542116048 source:d:\mr.t\desktop\course\大三上\compiler\compiler\main.cpp
+
+1542184136 source:d:\mr.t\desktop\course\大三上\compiler\compiler\grammar_analysis.cpp
+	<iostream>
+	<vector>
+	<assert.h>
+	"grammar_analysis.h"
+
+1542120546 d:\mr.t\desktop\course\大三上\compiler\compiler\grammar_analysis.h
 	<vector>
 
 1541378563 source:f:\codeblocks_workplace\compiler\compiler\compiler.cpp

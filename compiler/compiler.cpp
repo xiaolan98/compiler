@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<fstream>
+#include"grammar_analysis.h"
 using namespace std;
 
 #define NUMBERID 30 // 数字的内部编码表示
@@ -152,7 +153,7 @@ int main(){
     }
     in.close();
     /*for(int i=0;i<sym.size();i++){
-        cout<<'('<<sym[i].first<<' '<<sym[i].second<<')'<<endl;
+        cout<<i+1<<'('<<sym[i].first<<' '<<sym[i].second<<')'<<endl;
     }
     for(int i=0;i<id.size();i++){
         cout<<id[i]<<endl;
@@ -163,8 +164,9 @@ int main(){
     }*/
     int first_length = 11;
     int second_length =11;
-    cout<<"symbol     class      address"<<endl;
+    cout<<"  symbol     class      address"<<endl;
     for(int i =0;i<sym_output.size();i++){
+        cout<<i+1<<" ";
         string str1_temp = "";
         string str2_temp = "";
         for(int j=0;j<first_length-sym_output[i].size();j++){str1_temp+=" ";}
@@ -181,5 +183,6 @@ int main(){
             continue;
         }
     }
+    grammar_analysis ga(sym,id,num);
 return 0;
 }
