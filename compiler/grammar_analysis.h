@@ -19,7 +19,7 @@ private:
     vector<pair<int, int> > sym;
     vector<string> id;
     vector<string> num;
-    int countor=0;
+    int counter=0;
     int program();// first={const,var,procedure,[a-z],if,while,call,read,write,begin,Пе}
     int subprogram();// first={const,var,procedure,[a-z],if,while,call,read,write,begin,Пе}
     int const_description();// first={const}

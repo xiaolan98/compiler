@@ -56,14 +56,14 @@ int grammar_analysis::program(){
         return  -1;
     }
     pos_pointer = pos_pointer->parent;
-    if(sym[countor].first==29){
+    if(sym[counter].first==29){
         addNode(".");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in program description of "<<sym[countor].first<<endl;
+        cout<<"Error in program description of "<<sym[counter].first<<endl;
         return -1;
     }
 
@@ -71,7 +71,7 @@ int grammar_analysis::program(){
 // 分程序 first={const,var,procedure,[a-z],if,while,call,read,write,begin,空}
 int grammar_analysis::subprogram(){
     int temp;
-    if(sym[countor].first==1){
+    if(sym[counter].first==1){
         addNode(CONST_DESCRIPTION);
         temp = const_description();
         if(temp==-1){
@@ -79,7 +79,7 @@ int grammar_analysis::subprogram(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==2){
+    if(sym[counter].first==2){
         addNode(VARIABLE_DESCRIPTION);
         temp = variable_description();
         if(temp==-1){
@@ -87,7 +87,7 @@ int grammar_analysis::subprogram(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==3){
+    if(sym[counter].first==3){
         addNode(PROGRESS_DESCRIPTION);
         temp = progress_description();
         if(temp==-1){
@@ -95,7 +95,7 @@ int grammar_analysis::subprogram(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    //if(sym[countor].first==30||sym[countor].first==7||sym[countor].first==10||sym[countor].first==9||sym[countor].first==12||sym[countor].first==13||sym[countor].first==4){
+    //if(sym[counter].first==30||sym[counter].first==7||sym[counter].first==10||sym[counter].first==9||sym[counter].first==12||sym[counter].first==13||sym[counter].first==4){
     addNode(STATEMENT);
     temp = statement();
     if(temp==-1){
@@ -107,13 +107,13 @@ int grammar_analysis::subprogram(){
 // 常量说明部分 first={const}
 int grammar_analysis::const_description(){
     int temp;
-    if(sym[countor].first==1){
+    if(sym[counter].first==1){
         addNode("const");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in const description of "<<sym[countor].first<<endl;
+        cout<<"Error in const description of "<<sym[counter].first<<endl;
         return -1;
     }
     addNode(CONST_DEFINE);
@@ -122,10 +122,10 @@ int grammar_analysis::const_description(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==28){
+    while(sym[counter].first==28){
         addNode(",");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(CONST_DEFINE);
         temp=const_define();
         if(temp==-1){
@@ -133,36 +133,36 @@ int grammar_analysis::const_description(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==27){
+    if(sym[counter].first==27){
         addNode(";");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in const description of "<<sym[countor].first<<endl;
+        cout<<"Error in const description of "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 常量定义 first={[a-z]}
 int grammar_analysis::const_define(){
     int temp;
-    if(sym[countor].first == 0){
+    if(sym[counter].first == 0){
         addNode(STATEMENT);
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in const define of "<<sym[countor].first<<endl;
+        cout<<"Error in const define of "<<sym[counter].first<<endl;
         return -1;
     }
-    if(sym[countor].first == 19){
+    if(sym[counter].first == 19){
         addNode("=");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in const define of "<<sym[countor].first<<endl;
+        cout<<"Error in const define of "<<sym[counter].first<<endl;
         return -1;
     }
     addNode(UNSIGNED_INT);
@@ -172,25 +172,25 @@ int grammar_analysis::const_define(){
 }
 // 无符号整数 first={[0-9]}
 int grammar_analysis::unsigned_int(){
-    if(sym[countor].first==30){
-        countor++;
+    if(sym[counter].first==30){
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in defining unsigned int "<<sym[countor].first<<endl;
+        cout<<"Error in defining unsigned int "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 变量说明部分 first={var}
 int grammar_analysis::variable_description(){
     int temp;
-    if(sym[countor].first==2){
+    if(sym[counter].first==2){
         addNode("var");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in variable description of "<<sym[countor].first<<endl;
+        cout<<"Error in variable description of "<<sym[counter].first<<endl;
         return -1;
     }
     addNode(IDENTIFIER);
@@ -199,10 +199,10 @@ int grammar_analysis::variable_description(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==28){
+    while(sym[counter].first==28){
         addNode(",");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(IDENTIFIER);
         temp=identifier();
         if(temp==-1){
@@ -210,25 +210,25 @@ int grammar_analysis::variable_description(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==27){
+    if(sym[counter].first==27){
         addNode(";");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in variavle description of "<<sym[countor].first<<endl;
+        cout<<"Error in variavle description of "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 标识符 first={[a-z]}
 int grammar_analysis::identifier(){
-    if(sym[countor].first==0){
-        countor++;
+    if(sym[counter].first==0){
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in defining identifier "<<sym[countor].first<<endl;
+        cout<<"Error in defining identifier "<<sym[counter].first<<endl;
         return -1;
     }
 }
@@ -247,17 +247,17 @@ int grammar_analysis::progress_description(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    if(sym[countor].first==27){
+    if(sym[counter].first==27){
         addNode(";");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         temp = 1;
     }
     else{
-        //cout<<"Error in progress description of"<<sym[countor].first<<endl;
+        //cout<<"Error in progress description of"<<sym[counter].first<<endl;
         return -1;
     }
-    if(sym[countor].first==3){// 针对此文法，此文法中procedure不可能出现在其他的地方
+    if(sym[counter].first==3){// 针对此文法，此文法中procedure不可能出现在其他的地方
         addNode(PROGRESS_DESCRIPTION);
         temp = progress_description();
         pos_pointer = pos_pointer->parent;
@@ -270,13 +270,13 @@ int grammar_analysis::progress_description(){
 // 过程首部 first={procedure}
 int grammar_analysis::progress_head(){
     int temp;
-    if(sym[countor].first==3){
+    if(sym[counter].first==3){
         addNode("procedure");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in progress head of"<<sym[countor].first<<endl;
+        cout<<"Error in progress head of"<<sym[counter].first<<endl;
     }
     addNode(IDENTIFIER);
     temp = identifier();
@@ -284,57 +284,57 @@ int grammar_analysis::progress_head(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    if(sym[countor].first==27){
+    if(sym[counter].first==27){
         addNode(";");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in progress head of "<<sym[countor].first<<endl;
+        cout<<"Error in progress head of "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 语句 first={[a-z],if,while,call,read,write,begin,空}
 int grammar_analysis::statement(){
     int temp;
-    if(sym[countor].first==0){
+    if(sym[counter].first==0){
         addNode(ASSIGNMENT_STATEMENT);
         temp = assignment_statement();
         pos_pointer = pos_pointer->parent;
         return 1;
     }
-    else if(sym[countor].first==7){
+    else if(sym[counter].first==7){
         addNode(CONDITIONAL_STATEMENT);
         temp = conditional_statement();
         pos_pointer = pos_pointer->parent;
         return 1;
     }
-    else if(sym[countor].first==10){
+    else if(sym[counter].first==10){
         addNode(WHEN_TYPE_LOOP_STATEMENT);
         temp = when_type_loop_statement();
         pos_pointer = pos_pointer->parent;
         return 1;
     }
-    else if(sym[countor].first==9){
+    else if(sym[counter].first==9){
         addNode(CALL_STATEMENT);
         temp = call_statement();
         pos_pointer = pos_pointer->parent;
         return 1;
     }
-    else if(sym[countor].first==12){
+    else if(sym[counter].first==12){
         addNode(READ_STATEMENT);
         temp = read_statement();
         pos_pointer = pos_pointer->parent;
         return 1;
     }
-    else if(sym[countor].first==13){
+    else if(sym[counter].first==13){
         addNode(WRITE_STATEMENT);
         temp = write_statement();
         pos_pointer = pos_pointer->parent;
         return 1;
     }
-    else if(sym[countor].first==4){
+    else if(sym[counter].first==4){
         addNode(COMPOUND_STATEMENT);
         temp = compound_statement();
         pos_pointer = pos_pointer->parent;
@@ -348,22 +348,22 @@ int grammar_analysis::statement(){
 }
 // 赋值语句 first={[a-z]}
 int grammar_analysis::assignment_statement(){
-    if(sym[countor].first==0){//不太优雅
+    if(sym[counter].first==0){//不太优雅
         addNode(IDENTIFIER);
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in assignment statement of"<<sym[countor].first<<endl;
+        cout<<"Error in assignment statement of"<<sym[counter].first<<endl;
         return -1;
     }
-    if(sym[countor].first==18){
+    if(sym[counter].first==18){
         addNode(":=");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in assignment statement of"<<sym[countor].first<<endl;
+        cout<<"Error in assignment statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(EXPRESSION);
@@ -374,13 +374,13 @@ int grammar_analysis::assignment_statement(){
 // 复合语句 first={begin}
 int grammar_analysis::compound_statement(){
     int temp;
-    if(sym[countor].first==4){
+    if(sym[counter].first==4){
         addNode("begin");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in compound statement of"<<sym[countor].first<<endl;
+        cout<<"Error in compound statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(STATEMENT);
@@ -389,10 +389,10 @@ int grammar_analysis::compound_statement(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==27){
+    while(sym[counter].first==27){
         addNode(";");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(STATEMENT);
         temp=statement();
         if(temp==-1){
@@ -400,24 +400,24 @@ int grammar_analysis::compound_statement(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==5){
+    if(sym[counter].first==5){
         addNode("end");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in compound statement of"<<sym[countor].first<<endl;
+        cout<<"Error in compound statement of"<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 条件 first={odd,+,-,[a-z],[0-9],(}
 int grammar_analysis::condition(){
     int temp;
-    if(sym[countor].first==6){
+    if(sym[counter].first==6){
         addNode("odd");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(STATEMENT);
         temp = expression();
         pos_pointer = pos_pointer->parent;
@@ -444,10 +444,10 @@ int grammar_analysis::condition(){
 }
 // 表达式 first={+,-,[a-z],[0-9],(}
 int grammar_analysis::expression(){
-    if(sym[countor].first==14||sym[countor].first==15){
+    if(sym[counter].first==14||sym[counter].first==15){
         addNode("[+|-]");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     int temp;
     addNode(ITEM);
@@ -456,7 +456,7 @@ int grammar_analysis::expression(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==14||sym[countor].first==15){
+    while(sym[counter].first==14||sym[counter].first==15){
         addNode(ADD_SUB_OPERATOR);
         add_sub_operator();
         pos_pointer = pos_pointer->parent;
@@ -478,7 +478,7 @@ int grammar_analysis::item(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==16||sym[countor].first==17){
+    while(sym[counter].first==16||sym[counter].first==17){
         addNode(MUL_DIV_OPERATOR);
         mul_div_operator();
         pos_pointer = pos_pointer->parent;
@@ -494,32 +494,32 @@ int grammar_analysis::item(){
 // 因子 first={[a-z],[0-9],(}
 int grammar_analysis::factor(){
     int temp;
-    if(sym[countor].first==0){
+    if(sym[counter].first==0){
         addNode(IDENTIFIER);
         temp = identifier();
         pos_pointer = pos_pointer->parent;
         return temp;
     }
-    else if(sym[countor].first==30){
+    else if(sym[counter].first==30){
         addNode(UNSIGNED_INT);
         temp = unsigned_int();
         pos_pointer = pos_pointer->parent;
         return temp;
     }
-    else if(sym[countor].first==25){
+    else if(sym[counter].first==25){
         addNode("(");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(EXPRESSION);
         temp = expression();
         if(temp==-1){
             return -1;
         }
         pos_pointer = pos_pointer->parent;
-        if(sym[countor].first==26){
+        if(sym[counter].first==26){
             addNode(")");
             pos_pointer = pos_pointer->parent;
-            countor++;
+            counter++;
             return -1;
         }
     }
@@ -530,47 +530,47 @@ int grammar_analysis::factor(){
 }
 // 加减运算符 first={+,-}
 int grammar_analysis::add_sub_operator(){
-    if(sym[countor].first==14||sym[countor].first==15){
-        countor++;
+    if(sym[counter].first==14||sym[counter].first==15){
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in addition and subtract operator of "<<sym[countor].first<<endl;
+        cout<<"Error in addition and subtract operator of "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 乘除运算符 first={*,/}
 int grammar_analysis::mul_div_operator(){
-    if(sym[countor].first==16||sym[countor].first==17){
-        countor++;
+    if(sym[counter].first==16||sym[counter].first==17){
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in multiple and division operator of "<<sym[countor].first<<endl;
+        cout<<"Error in multiple and division operator of "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 关系运算符 first={=,#,<,<=,>,>=}
 int grammar_analysis::relation_operator(){
-    if(sym[countor].first==19||sym[countor].first==20||sym[countor].first==21||sym[countor].first==22||sym[countor].first==23||sym[countor].first==24){
-        countor++;
+    if(sym[counter].first==19||sym[counter].first==20||sym[counter].first==21||sym[counter].first==22||sym[counter].first==23||sym[counter].first==24){
+        counter++;
         return 1;
     }
     else{
-        cout<<"Error in relation operator of "<<sym[countor].first<<endl;
+        cout<<"Error in relation operator of "<<sym[counter].first<<endl;
         return -1;
     }
 }
 // 条件语句 first={if}
 int grammar_analysis::conditional_statement(){
     int temp;
-    if(sym[countor].first==7){
+    if(sym[counter].first==7){
         addNode("if");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in conditional statement of"<<sym[countor].first<<endl;
+        cout<<"Error in conditional statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(CONDITION);
@@ -579,13 +579,13 @@ int grammar_analysis::conditional_statement(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    if(sym[countor].first==8){
+    if(sym[counter].first==8){
         addNode("then");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in conditional statement of"<<sym[countor].first<<endl;
+        cout<<"Error in conditional statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(STATEMENT);
@@ -594,13 +594,13 @@ int grammar_analysis::conditional_statement(){
 }
 // 过程调用语句 first={call}
 int grammar_analysis::call_statement(){
-    if(sym[countor].first==9){
+    if(sym[counter].first==9){
         addNode("call");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in call statement of"<<sym[countor].first<<endl;
+        cout<<"Error in call statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(IDENTIFIER);
@@ -611,13 +611,13 @@ int grammar_analysis::call_statement(){
 // 当型循环语句 first={while}
 int grammar_analysis::when_type_loop_statement(){
     int temp;
-    if(sym[countor].first==10){
+    if(sym[counter].first==10){
         addNode("while");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in while type loop statement of"<<sym[countor].first<<endl;
+        cout<<"Error in while type loop statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(CONDITION);
@@ -626,13 +626,13 @@ int grammar_analysis::when_type_loop_statement(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    if(sym[countor].first==11){
+    if(sym[counter].first==11){
         addNode("then");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in while type loop statement of"<<sym[countor].first<<endl;
+        cout<<"Error in while type loop statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode("");
@@ -643,22 +643,22 @@ int grammar_analysis::when_type_loop_statement(){
 // 读语句 first={read}
 int grammar_analysis::read_statement(){
     int temp;
-    if(sym[countor].first==12){
+    if(sym[counter].first==12){
         addNode("read");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in read statement of"<<sym[countor].first<<endl;
+        cout<<"Error in read statement of"<<sym[counter].first<<endl;
         return -1;
     }
-    if(sym[countor].first==25){
+    if(sym[counter].first==25){
         addNode("(");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in read statement of"<<sym[countor].first<<endl;
+        cout<<"Error in read statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(IDENTIFIER);
@@ -667,10 +667,10 @@ int grammar_analysis::read_statement(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==28){
+    while(sym[counter].first==28){
         addNode(",");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(IDENTIFIER);
         temp = identifier();
         if(temp==-1){
@@ -678,13 +678,13 @@ int grammar_analysis::read_statement(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==26){
+    if(sym[counter].first==26){
         addNode(")");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in read statement of"<<sym[countor].first<<endl;
+        cout<<"Error in read statement of"<<sym[counter].first<<endl;
         return -1;
     }
     return 1;
@@ -692,22 +692,22 @@ int grammar_analysis::read_statement(){
 // 写语句 first={write}
 int grammar_analysis::write_statement(){
     int temp;
-    if(sym[countor].first==13){
+    if(sym[counter].first==13){
         addNode("write");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in write statement of"<<sym[countor].first<<endl;
+        cout<<"Error in write statement of"<<sym[counter].first<<endl;
         return -1;
     }
-    if(sym[countor].first==25){
+    if(sym[counter].first==25){
         addNode("(");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in write statement of"<<sym[countor].first<<endl;
+        cout<<"Error in write statement of"<<sym[counter].first<<endl;
         return -1;
     }
     addNode(EXPRESSION);
@@ -716,10 +716,10 @@ int grammar_analysis::write_statement(){
         return -1;
     }
     pos_pointer = pos_pointer->parent;
-    while(sym[countor].first==28){
+    while(sym[counter].first==28){
         addNode(",");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
         addNode(EXPRESSION);
         temp = expression();
         if(temp==-1){
@@ -727,13 +727,13 @@ int grammar_analysis::write_statement(){
         }
         pos_pointer = pos_pointer->parent;
     }
-    if(sym[countor].first==26){
+    if(sym[counter].first==26){
         addNode("）");
         pos_pointer = pos_pointer->parent;
-        countor++;
+        counter++;
     }
     else{
-        cout<<"Error in write statement of"<<sym[countor].first<<endl;
+        cout<<"Error in write statement of"<<sym[counter].first<<endl;
         return -1;
     }
     return 1;
@@ -746,14 +746,24 @@ void grammar_analysis::drawTree(vector<node*> nodes, vector<int> nodeNum){
     if(nodes.size()==0){
         return;
     }
+    for(int i=0;i<nodeNum.size();i++){
+        cout<<nodeNum[i];
+    }
+    cout<<endl;
     vector<node*> childnodes;
     vector<int> childNum;
     int countnum = 0;
+    int countchild = 0;
     for(int i=0;i<nodes.size();i++){
-        cout<<nodes[i]->element<<" ";
-        if(nodeNum[countnum]==i+1){
-            cout<<"    ";
+        cout<<nodes[i]->element;
+        countchild++;
+        while(nodeNum[countnum]==0){
             countnum++;
+        }
+        if(nodeNum[countnum]==countchild){
+            cout<<"  ";
+            countnum++;
+            countchild = 0;
         }
         childNum.push_back(nodes[i]->children.size());
         for(int j=0;j<nodes[i]->children.size();j++){
