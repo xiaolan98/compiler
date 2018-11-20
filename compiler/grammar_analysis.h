@@ -48,6 +48,7 @@ private:
 	//int digit();// first={[0,9]}
 	void drawTree(vector<node*> nodes, vector<int> nodeNum);
 	void addNode(const string& key);
+	void generateDot();
 
 };
 

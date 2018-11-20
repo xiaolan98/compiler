@@ -1,32 +1,35 @@
 #include<iostream>
 #include<vector>
 #include<assert.h>
+#include<fstream>
+#include<stack>
+#include<string>
 #include "grammar_analysis.h"
 using namespace std;
-#define PROGRAM "程序"
-#define SUBPROGRAM "分程序"
-#define CONST_DESCRIPTION "常说"
-#define CONST_DEFINE "常定"
-#define UNSIGNED_INT "无符整"
-#define VARIABLE_DESCRIPTION "变说"
-#define IDENTIFIER "标"
-#define PROGRESS_DESCRIPTION "过说"
-#define PROGRESS_HEAD "过首"
-#define STATEMENT "语"
-#define ASSIGNMENT_STATEMENT "赋语"
-#define COMPOUND_STATEMENT "复语"
-#define CONDITION "条"
-#define EXPRESSION"表"
-#define ITEM "项"
-#define FACTOR "因"
-#define ADD_SUB_OPERATOR "加运"
-#define MUL_DIV_OPERATOR "乘运"
-#define RELATION_OPERATOR "关运"
-#define CONDITIONAL_STATEMENT "条语"
-#define CALL_STATEMENT "过调语"
-#define WHEN_TYPE_LOOP_STATEMENT "当循语"
-#define READ_STATEMENT "读语"
-#define WRITE_STATEMENT "写语"
+#define PROGRAM "program"
+#define SUBPROGRAM "subprogram"
+#define CONST_DESCRIPTION "const description"
+#define CONST_DEFINE "const define"
+#define UNSIGNED_INT "unsigned int"
+#define VARIABLE_DESCRIPTION "variable description"
+#define IDENTIFIER "identifier"
+#define PROGRESS_DESCRIPTION "progress description"
+#define PROGRESS_HEAD "progress head"
+#define STATEMENT "statement"
+#define ASSIGNMENT_STATEMENT "assignment statement"
+#define COMPOUND_STATEMENT "compound statement"
+#define CONDITION "condition"
+#define EXPRESSION "expression"
+#define ITEM "item"
+#define FACTOR "factor"
+#define ADD_SUB_OPERATOR "add sub operator"
+#define MUL_DIV_OPERATOR "mul div operator"
+#define RELATION_OPERATOR "relation operator"
+#define CONDITIONAL_STATEMENT "conditional statement"
+#define CALL_STATEMENT "call statement"
+#define WHEN_TYPE_LOOP_STATEMENT "while type loop statement"
+#define READ_STATEMENT "read statement"
+#define WRITE_STATEMENT "write statement"
 grammar_analysis::grammar_analysis(vector<pair<int, int> >sym, vector<string>id, vector<string> num){
         this->sym = sym;
         this->id = id;
@@ -40,6 +43,7 @@ grammar_analysis::grammar_analysis(vector<pair<int, int> >sym, vector<string>id,
         nodes.push_back(root);
         nodeNum.push_back(root->children.size());
         drawTree(nodes, nodeNum);
+        generateDot();
 }
 void grammar_analysis::addNode(const string& key){
     //cout<<key<<endl;
@@ -341,7 +345,7 @@ int grammar_analysis::statement(){
         return 1;
     }
     else{
-        addNode("空");
+        addNode("empty");
         pos_pointer = pos_pointer->parent;
         return 1;
     }
@@ -728,7 +732,7 @@ int grammar_analysis::write_statement(){
         pos_pointer = pos_pointer->parent;
     }
     if(sym[counter].first==26){
-        addNode("）");
+        addNode(")");
         pos_pointer = pos_pointer->parent;
         counter++;
     }
@@ -773,4 +777,22 @@ void grammar_analysis::drawTree(vector<node*> nodes, vector<int> nodeNum){
     cout<<endl;
     drawTree(childnodes,childNum);
 }
-
+void grammar_analysis::generateDot(){
+    ofstream out("image.gv");
+    out<<"digraph tree{"<<endl;
+    stack<node*> nodeStack;
+    nodeStack.push(root);
+    node* ptr;
+    while(!nodeStack.empty()){
+        ptr = nodeStack.top();
+        if(ptr->parent){
+            out<<"\""<<ptr->parent->element<<"\""<<" -> "<<"\""<<ptr->element<<"\""<<endl;
+        }
+        nodeStack.pop();
+        for(int i=0;i<ptr->children.size();i++){
+            nodeStack.push(ptr->children[i]);
+        }
+    }
+    out<<"}";
+    out.close();
+}
