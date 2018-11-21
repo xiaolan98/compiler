@@ -34,23 +34,28 @@ grammar_analysis::grammar_analysis(vector<pair<int, int> >sym, vector<string>id,
         this->sym = sym;
         this->id = id;
         this->num = num;
-        root = new node(PROGRAM);
+        nodeIdCounter = 0;
+        root = new node(PROGRAM,nodeIdCounter);
+        nodeIdCounter++;
         pos_pointer = root;
         root->parent = NULL;
+        allNode.push_back(root);
         program();
         vector<node*> nodes;
         vector<int> nodeNum;
         nodes.push_back(root);
         nodeNum.push_back(root->children.size());
-        drawTree(nodes, nodeNum);
+        //drawTree(nodes, nodeNum);
         generateDot();
 }
 void grammar_analysis::addNode(const string& key){
     //cout<<key<<endl;
-    node* childnode = new node(key);
+    node* childnode = new node(key,nodeIdCounter);
+    nodeIdCounter++;
     childnode->parent = pos_pointer;
     pos_pointer->children.push_back(childnode);
     pos_pointer = childnode;
+    allNode.push_back(childnode);
 }
 // ³ÌÐò first={const,var,procedure,[a-z],if,while,call,read,write,begin,¿Õ}
 int grammar_analysis::program(){
@@ -639,7 +644,7 @@ int grammar_analysis::when_type_loop_statement(){
         cout<<"Error in while type loop statement of"<<sym[counter].first<<endl;
         return -1;
     }
-    addNode("");
+    addNode(STATEMENT);
     temp = statement();
     pos_pointer = pos_pointer->parent;
     return temp;
@@ -780,13 +785,16 @@ void grammar_analysis::drawTree(vector<node*> nodes, vector<int> nodeNum){
 void grammar_analysis::generateDot(){
     ofstream out("image.gv");
     out<<"digraph tree{"<<endl;
+    for(int i=0;i<allNode.size();i++){
+        out<<"element"<<allNode[i]->nodeId<<"[label="<<"\""<<allNode[i]->element<<"\"]"<<endl;
+    }
     stack<node*> nodeStack;
     nodeStack.push(root);
     node* ptr;
     while(!nodeStack.empty()){
         ptr = nodeStack.top();
         if(ptr->parent){
-            out<<"\""<<ptr->parent->element<<"\""<<" -> "<<"\""<<ptr->element<<"\""<<endl;
+            out<<"element"<<ptr->parent->nodeId<<" -> "<<"element"<<ptr->nodeId<<endl;
         }
         nodeStack.pop();
         for(int i=0;i<ptr->children.size();i++){

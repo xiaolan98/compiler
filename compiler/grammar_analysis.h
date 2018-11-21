@@ -6,8 +6,10 @@ struct node{
     string element;
     vector<node*> children;
     node* parent;
-    node(string key){
+    int nodeId;
+    node(string key,int node_id_input){
         element = key;
+        nodeId = node_id_input;
     }
 };
 class grammar_analysis{
@@ -19,6 +21,8 @@ private:
     vector<pair<int, int> > sym;
     vector<string> id;
     vector<string> num;
+    vector<node*> allNode;
+    int nodeIdCounter;
     int counter=0;
     int program();// first={const,var,procedure,[a-z],if,while,call,read,write,begin,Пе}
     int subprogram();// first={const,var,procedure,[a-z],if,while,call,read,write,begin,Пе}
