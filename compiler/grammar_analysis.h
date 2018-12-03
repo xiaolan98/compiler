@@ -12,6 +12,23 @@ struct node{
         nodeId = node_id_input;
     }
 };
+struct tableElement{
+    string name;
+    string kind;
+    int level_or_value;
+    int adr;
+    tableElement(string NAME, string KIND,int LEVELORVALUE, int ADR){
+        name = NAME;
+        kind = KIND;
+        level_or_value = LEVELORVALUE;
+        adr = ADR;
+    }
+};
+struct code{
+    string f;
+    int l;
+    int a;
+};
 class grammar_analysis{
 public:
     grammar_analysis(vector<pair<int, int> >sym, vector<string>id, vector<string> num);
@@ -22,6 +39,9 @@ private:
     vector<string> id;
     vector<string> num;
     vector<node*> allNode;
+    vector<tableElement*> table;
+    int dx;
+    int lea;
     int nodeIdCounter;
     int counter=0;
     int program();// first={const,var,procedure,[a-z],if,while,call,read,write,begin,Пе}
@@ -53,6 +73,7 @@ private:
 	void drawTree(vector<node*> nodes, vector<int> nodeNum);
 	void addNode(const string& key);
 	void generateDot();
+
 
 };
 

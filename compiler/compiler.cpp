@@ -152,7 +152,7 @@ int main(){
         GetSym(line);
     }
     in.close();
-    /*for(int i=0;i<sym.size();i++){
+    for(int i=0;i<sym.size();i++){
         cout<<i+1<<'('<<sym[i].first<<' '<<sym[i].second<<')'<<endl;
     }
     for(int i=0;i<id.size();i++){
@@ -161,7 +161,7 @@ int main(){
     cout<<endl;
     for(int i=0;i<num.size();i++){
         cout<<num[i]<<endl;
-    }*/
+    }
     int first_length = 11;
     int second_length =11;
     cout<<"  symbol     class      address"<<endl;
@@ -183,6 +183,6 @@ int main(){
             continue;
         }
     }
-    grammar_analysis ga(sym,id,num);
+    //grammar_analysis ga(sym,id,num);
 return 0;
 }

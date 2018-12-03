@@ -43,3 +43,21 @@
 	<string>
 	"grammar_analysis.h"
 
+1543808207 source:f:\github\compiler\compiler\grammar_analysis.cpp
+	<iostream>
+	<vector>
+	<assert.h>
+	<fstream>
+	<stack>
+	<string>
+	"grammar_analysis.h"
+
+1543807849 f:\github\compiler\compiler\grammar_analysis.h
+	<vector>
+
+1543808236 source:f:\github\compiler\compiler\compiler.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	"grammar_analysis.h"
+

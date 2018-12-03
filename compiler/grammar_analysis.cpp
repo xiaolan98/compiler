@@ -34,6 +34,8 @@ grammar_analysis::grammar_analysis(vector<pair<int, int> >sym, vector<string>id,
         this->sym = sym;
         this->id = id;
         this->num = num;
+        dx = 3;
+        lea = 0;
         nodeIdCounter = 0;
         root = new node(PROGRAM,nodeIdCounter);
         nodeIdCounter++;
@@ -156,8 +158,11 @@ int grammar_analysis::const_description(){
 // 常量定义 first={[a-z]}
 int grammar_analysis::const_define(){
     int temp;
+    string tempname;
+    int tempnum;
     if(sym[counter].first == 0){
-        addNode(STATEMENT);
+        tempname = id[sym[counter].second];
+        addNode(IDENTIFIER);
         pos_pointer = pos_pointer->parent;
         counter++;
     }
@@ -177,6 +182,9 @@ int grammar_analysis::const_define(){
     addNode(UNSIGNED_INT);
     temp = unsigned_int();
     pos_pointer = pos_pointer->parent;
+    tempnum = num[sym[counter-1].second];
+    tableElement* tableitem = new tableElement(tempname,"CONSTANT",tempnum,-1);
+    table.push_back(tableitem);
     return temp;
 }
 // 无符号整数 first={[0-9]}
