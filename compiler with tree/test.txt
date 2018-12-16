@@ -3,7 +3,6 @@ var v1,v2,v3,v4;
 procedure p1;
  var v5;
  begin
-  write(v1,v2);
   v5:=2;
   write(v5/2+2-1);
   while v3#0 do

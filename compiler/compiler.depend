@@ -23,18 +23,19 @@
 
 1541945419 source:f:\codeblocks_workplace\compiler\compiler\main.cpp
 
-1542638019 source:d:\mr.t\desktop\github\compiler\compiler\compiler.cpp
-	<iostream>
-	<vector>
-	<fstream>
+1544363896 source:d:\mr.t\desktop\github\compiler\compiler\compiler.cpp
 	"grammar_analysis.h"
+	"lexical_analysis.h"
+	"interpreter.h"
+	<iostream>
 
-1542714398 d:\mr.t\desktop\github\compiler\compiler\grammar_analysis.h
+1544096946 d:\mr.t\desktop\github\compiler\compiler\grammar_analysis.h
 	<vector>
+	<strstream>
 
 1542116048 source:d:\mr.t\desktop\github\compiler\compiler\main.cpp
 
-1542637700 source:d:\mr.t\desktop\github\compiler\compiler\grammar_analysis.cpp
+1544412421 source:d:\mr.t\desktop\github\compiler\compiler\grammar_analysis.cpp
 	<iostream>
 	<vector>
 	<assert.h>
@@ -59,5 +60,20 @@
 	<iostream>
 	<vector>
 	<fstream>
+	"grammar_analysis.h"
+
+1544088748 source:d:\mr.t\desktop\github\compiler\compiler\lexical_analysis.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	"lexical_analysis.h"
+
+1544088763 d:\mr.t\desktop\github\compiler\compiler\lexical_analysis.h
+
+1544412161 source:d:\mr.t\desktop\github\compiler\compiler\interpreter.cpp
+	"interpreter.h"
+	<iostream>
+
+1544097982 d:\mr.t\desktop\github\compiler\compiler\interpreter.h
 	"grammar_analysis.h"
 

@@ -35,10 +35,7 @@
 		<Unit filename="compiler.cpp" />
 		<Unit filename="grammar_analysis.cpp" />
 		<Unit filename="grammar_analysis.h" />
-		<Unit filename="interpreter.cpp" />
-		<Unit filename="interpreter.h" />
-		<Unit filename="lexical_analysis.cpp" />
-		<Unit filename="lexical_analysis.h" />
+		<Unit filename="tree.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

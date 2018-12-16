@@ -12,6 +12,4 @@ procedure p1;
    v1:=v2;
    v2:=v3;
   end;
- end;
- begin
- end.
+ end。
