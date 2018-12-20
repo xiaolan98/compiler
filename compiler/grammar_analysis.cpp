@@ -51,8 +51,8 @@ grammar_analysis::grammar_analysis(vector<pair<int, int> >sym, vector<string>id,
         nodes.push_back(root);
         nodeNum.push_back(root->children.size());
         //drawTree(nodes, nodeNum);
-        //generateDot();
-        show_object_code_and_table();
+        generateDot();
+        //show_object_code_and_table();
 }
 void grammar_analysis::addNode(const string& key){
     //cout<<key<<endl;
@@ -762,7 +762,7 @@ int grammar_analysis::when_type_loop_statement(){
     }
     pos_pointer = pos_pointer->parent;
     if(sym[counter].first==11){
-        addNode("then");
+        addNode("do");
         pos_pointer = pos_pointer->parent;
         counter++;
     }

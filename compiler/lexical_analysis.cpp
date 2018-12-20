@@ -5,7 +5,7 @@
 using namespace std;
 #define NUMBERID 30 // 数字的内部编码表示
 lexical_analysis::lexical_analysis(vector<pair<int, int> >& sym, vector<string>& id, vector<string>& num){
-    ifstream in("test.txt");
+    ifstream in("program.txt");
     string line;
     while(getline(in,line)){
         GetSym(line);
@@ -16,7 +16,7 @@ lexical_analysis::lexical_analysis(vector<pair<int, int> >& sym, vector<string>&
     num = this->num;
     //display();
 }
-int lexical_analysis::Reserve(string word){
+int lexical_analysis::Reserve(string word){//判断一个词是不是保留字
     int code_num = 0;
     int count_num = 0;
     for(int i=0;i<13;i++){
@@ -29,7 +29,7 @@ int lexical_analysis::Reserve(string word){
     return code_num;
 }
 
-int lexical_analysis::ReserveSymbol(string word){
+int lexical_analysis::ReserveSymbol(string word){//判断是不是符号，是的话返回符号的编号
     int code_num = 13;
     for(int i=0;i<16;i++){
         code_num++;
@@ -40,7 +40,7 @@ int lexical_analysis::ReserveSymbol(string word){
     return 0;
 }
 
-bool lexical_analysis::IsSymbol(char ch){
+bool lexical_analysis::IsSymbol(char ch){//判断是不是符号
     for(int i=0;i<16;i++){
         if(ch==symbol[i][0]){
             return 1;
